@@ -137,10 +137,7 @@ autosense/
 * Simulate limp mode (power-limited state before shutdown)
 
 ---
-
 ## Built By
-
-**Tanmay Dabhade**
-Built this to demonstrate **deep thinking, real-world engineering, and raw Python skills** — inspired by Tesla's commitment to excellence.
-
+**Tanmay Dabhade**\
+[LinkedIn](https://www.linkedin.com/in/tanmay-dabhade)
 ---
