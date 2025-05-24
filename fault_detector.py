@@ -6,6 +6,12 @@ class FaultDetector:
         self.last_values = {}
 
     def detect(self, data):
+        """
+        Function receives data and compares it to set thresholds to determine if there isa fault and returns the fault
+        type and information to display and log it into the log timer.
+        :param data: Dictionary of all sensor data obtained from update function in sensor_simulator
+        :return: faults: List of faults detected.
+        """
         faults = []
 
         # Store trends

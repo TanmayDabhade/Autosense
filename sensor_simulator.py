@@ -32,10 +32,30 @@ class VehicleSimulator:
         self.mode = self.drive_schedule[0][1]
 
     def generate_drive_schedule(self):
+        """
+        Generates a driving schedule to make generation of simulated data look realistic. Uses random to generate a random driving schedule for which every driving mode is for a time period between 10-20 seconds and there are 10 time frames in every schedule.
+        :return: [list]: random driving schedule
+        """
         modes = ['normal', 'aggressive', 'idle']
         return [(random.randint(10, 20), random.choice(modes)) for _ in range(10)]
 
     def update(self):
+        """
+        Use real physics relationships and simulates data to calculate the major factors crucial for the functioning of a Electronic Vehicle.
+        The function generates the following values.
+         - time
+         - mode
+         - speed
+         - motor_power
+         - battery_soc
+         - battery_temp
+         - tire_pressure
+         - heat_load
+         - cooling_mode_duration
+         - thermal_warning
+        These values are then used to determine if the vehicle is running well or is nearing a fault point.
+        :return: List of values above.
+        """
         self.current_time += self.time_step
         ambient_temp = 28.0  # °C
 

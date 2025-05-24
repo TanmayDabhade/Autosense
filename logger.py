@@ -3,6 +3,13 @@ from datetime import datetime
 
 
 def log_data(data, faults, filename="data/vehicle_log.csv"):
+    """
+    logs data to file using csv
+    :param data:
+    :param faults:
+    :param filename:
+    :return:
+    """
     with open(filename, mode='a', newline='') as file:
         writer = csv.writer(file)
 
