@@ -1,21 +1,34 @@
-import csv
 from datetime import datetime
+import os
 
-
-def log_data(data, faults, filename="data/vehicle_log.csv"):
+def log_data(data, faults, filename="data/vehicle_log.txt"):
     """
-    logs data to file using csv
-    :param data:
-    :param faults:
-    :param filename:
-    :return:
+    Logs data to a text file in CSV-like format without using the csv module.
+    :param data: Dictionary containing vehicle parameters
+    :param faults: List of detected faults
+    :param filename: File path to log the data
     """
-    with open(filename, mode='a', newline='') as file:
-        writer = csv.writer(file)
+    log_entry = [
+        datetime.now().isoformat(timespec="seconds"),
+        data["time"],
+        data["mode"],
+        f'{data["speed"]:.2f}',
+        f'{data["motor_power"]:.2f}',
+        f'{data["battery_soc"]:.2f}',
+        f'{data["battery_temp"]:.2f}',
+        f'{data["motor_temp"]:.2f}',
+        f'{data["tire_pressure"]:.2f}',
+        "Yes" if data.get("thermal_warning", False) else "No",
+        "; ".join(faults) if faults else "None"
+    ]
 
-        # Write header if file is empty
-        if file.tell() == 0:
-            writer.writerow([
+    # Create header if file does not exist or is empty
+    file_exists = os.path.isfile(filename)
+    is_empty = not file_exists or os.stat(filename).st_size == 0
+
+    with open(filename, "a") as file:
+        if is_empty:
+            file.write(",".join([
                 "Logged_At",
                 "Simulated_Time",
                 "Mode",
@@ -27,18 +40,8 @@ def log_data(data, faults, filename="data/vehicle_log.csv"):
                 "Tire_Pressure_PSI",
                 "Thermal_Warning",
                 "Faults"
-            ])
+            ]) + "\n")
 
-        writer.writerow([
-            datetime.now().isoformat(timespec="seconds"),
-            data["time"],
-            data["mode"],
-            data["speed"],
-            data["motor_power"],
-            data["battery_soc"],
-            data["battery_temp"],
-            data["motor_temp"],
-            data["tire_pressure"],
-            "Yes" if data.get("thermal_warning", False) else "No",
-            "; ".join(faults) if faults else "None"
-        ])
+        file.write(",".join(str(val) for val in log_entry) + "\n")
+
+

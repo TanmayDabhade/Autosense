@@ -3,12 +3,12 @@ from datetime import datetime, timedelta
 
 class VehicleSimulator:
     def __init__(self):
-        self.speed = 100.0             # km/h
-        self.motor_power = 90.0        # kW
-        self.battery_soc = 80.0        # %
-        self.battery_temp = 38.0       # °C
-        self.motor_temp = 45.0         # °C
-        self.tire_pressure = 31.0      # PSI
+        self.speed = 40.0
+        self.motor_power = 22.0
+        self.battery_soc = 80.0
+        self.battery_temp = 36.0
+        self.motor_temp = 42.0
+        self.tire_pressure = 31.2
 
         self.start_time = datetime.now()
         self.time_step = timedelta(seconds=2)
